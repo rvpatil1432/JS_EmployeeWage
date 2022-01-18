@@ -7,7 +7,8 @@ const WAGE_PER_HOUR = 20;
 const NUM_OF_WORKING_DAYS = 20;
 const MAX_HRS_IN_MONTH = 160;
 let empDailyWageArr = new Array();
-
+let empDailyWageMap = new Map();
+let empDailyHrsMap = new Map();
 function getWorkingHours(empCheck) {
     switch (empCheck) {
         case IS_PART_TIME:
@@ -29,7 +30,9 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empCheck = Math.floor(Math.random() * 10) % 3;
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
-    empDailyWageArr.push(calculateDailyWage(empHrs));
+    let dailyWage = calculateDailyWage(empHrs);
+    empDailyWageArr.push(dailyWage);
+    empDailyWageMap.set(totalWorkingDays,dailyWage);
 }
 let empWage = totalEmpHrs * WAGE_PER_HOUR;
 console.log("Total Days:" + totalWorkingDays + "," + " Total Hours:" + totalEmpHrs );
@@ -87,3 +90,18 @@ function totalDaysWorked(numOfDays, dailyWage) {
 }
 let numOfWorkingDays = empDailyWageArr.reduce(totalDaysWorked, 0);
 console.log("7G Total number of days employee worked :" + numOfWorkingDays);
+
+//Use Case  8 to Store employee wage in map as key is day and value as a employee wage. 
+console.log("Day Wise Employee Wage");
+for (let [key,value] of empDailyWageMap){
+console.log(+key+ " - " +value);
+}
+
+console.log("Total wage using reduce method :" + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+
+let totalWagesUsingMap = 0;
+function totalWagesMap(dailyWage) {
+    totalWagesUsingMap += dailyWage;
+}
+Array.from(empDailyWageMap.values()).map(totalWagesMap)
+console.log("Total wage using map method :" + totalWagesUsingMap);
