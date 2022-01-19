@@ -153,3 +153,35 @@ console.log("Non Working Days :" + nonWorkingDays);
 
 console.log("UC 10 Days,Daily hrs and wage of Employee. ");
 console.log(empDailyHrsAndWageArr);
+
+let totalDailyWage = empDailyHrsAndWageArr.reduce((totalWage,dailyHrsAndWage) => {
+    return totalWage+=dailyHrsAndWage.dailyWage;
+},0)
+
+console.log("UC11A Total Wage : "+totalDailyWage);
+
+let totalHrs = empDailyHrsAndWageArr.reduce((totalHrs,dailyHrsAndWage) => {
+    return totalHrs+=dailyHrsAndWage.dailyHrs;
+},0);
+
+console.log("UC11A Total Hrs : "+totalHrs);
+
+
+console.log("UC11B Full Working Days : ");
+//Using if else for giving condition inside forEach method.
+empDailyHrsAndWageArr.forEach(dailyHrsAndWage => {
+    if(dailyHrsAndWage.dailyHrs == 8){
+       console.log(dailyHrsAndWage);
+   }
+})
+//Using directly filter for giving condition.
+empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHrs == 8).forEach(dailyHrsAndWage => {console.log(dailyHrsAndWage)});
+
+console.log("UC11C Part Working Days : ");
+let partWorkingDayStrArr = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHrs == 4).map(dailyHrsAndWage => dailyHrsAndWage);
+console.log(partWorkingDayStrArr);
+
+console.log("UC11D No Working Days : ");
+let nonWorkingDayStrArr = empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHrs == 0).map(dailyHrsAndWage => dailyHrsAndWage.day);
+console.log(nonWorkingDayStrArr);
+
